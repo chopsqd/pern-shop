@@ -3,16 +3,14 @@ const express = require('express')
 const sequelize = require('./db')
 const cors = require('cors')
 const model = require('./models/models')
+const router = require('./routes/index')
 
 const PORT = process.env.PORT || 5000
 const app = express()
 
 app.use(cors())
 app.use(express.json())
-
-app.get('/', (req, res) => {
-    res.send('Bruhhhh')
-})
+app.use('/api', router)
 
 const start = async () => {
     try {
