@@ -52,12 +52,9 @@ const TypeBrand = sequelize.define('type_brand', {
 
 // Связываем таблицы между собой (указываем типы связей) //
 
-// Одна запись Device содержит много записей DeviceInfo
-Device.hasMany(DeviceInfo)
-// DeviceInfo принадлежит Device
-DeviceInfo.belongsTo(Device)
-
+// Одна запись User содержит много записей Basket
 User.hasOne(Basket)
+// Basket принадлежит User
 Basket.belongsTo(User)
 
 User.hasMany(Rating)
@@ -77,6 +74,10 @@ Rating.belongsTo(Device)
 
 Device.hasMany(BasketDevice)
 BasketDevice.belongsTo(Device)
+
+// {as: 'info'} - Указываем названия поля, которое будет у массива характеристик
+Device.hasMany(DeviceInfo, {as: 'info'})
+DeviceInfo.belongsTo(Device)
 
 // ВАЖНО!
 // При связи Многие ко Многим создается промежуточная таблица,
