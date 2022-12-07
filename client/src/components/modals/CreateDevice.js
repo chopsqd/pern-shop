@@ -1,0 +1,106 @@
+import React, {useContext, useState} from 'react';
+import {Button, Col, Dropdown, Form, Modal, Row} from "react-bootstrap";
+import {Context} from "../../index";
+import DropdownToggle from "react-bootstrap/DropdownToggle";
+import DropdownMenu from "react-bootstrap/DropdownMenu";
+
+const CreateDevice = ({show, onHide}) => {
+    const {device} = useContext(Context)
+    const [info, setInfo] = useState([])
+
+    const addInfo = () => {
+        setInfo([...info, {id: Date.now(), title: '', description: ''}])
+    }
+
+    const removeInfo = (removeId) => {
+        setInfo(info.filter(i => i.id !== removeId))
+    }
+
+    return (
+        <Modal
+            show={show}
+            onHide={onHide}
+            size="lg"
+            centered
+        >
+            <Modal.Header>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Добавить устройство
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                    <div className={"d-flex justify-content-around"}>
+                        <Dropdown className={"mt-2 mb-2"}>
+                            <DropdownToggle>Выберете тип</DropdownToggle>
+                            <DropdownMenu>
+                                {device.types.map(type =>
+                                    <Dropdown.Item key={type.id}>{type.name}</Dropdown.Item>
+                                )}
+                            </DropdownMenu>
+                        </Dropdown>
+
+                        <Dropdown className={"mt-2 mb-2"}>
+                            <DropdownToggle>Выберете бренд</DropdownToggle>
+                            <DropdownMenu>
+                                {device.brands.map(brand =>
+                                    <Dropdown.Item key={brand.id}>{brand.name}</Dropdown.Item>
+                                )}
+                            </DropdownMenu>
+                        </Dropdown>
+                    </div>
+
+                    <Form.Control
+                        className={"mt-3"}
+                        type={"text"}
+                        placeholder={"Введите название устройства..."}
+                    />
+                    <Form.Control
+                        className={"mt-3"}
+                        type={"number"}
+                        placeholder={"Введите стоимость устройства..."}
+                    />
+                    <Form.Control
+                        className={"mt-3"}
+                        type={"file"}
+                    />
+                    <hr/>
+                    <Button
+                        variant={"outline-dark"}
+                        onClick={addInfo}
+                    >
+                        Добавить новое свойство
+                    </Button>
+                    {info.map(i =>
+                        <Row className={"mt-3"} key={i.id}>
+                            <Col md={4}>
+                                <Form.Control
+                                    placeholder={"Введите название свойства..."}
+                                />
+                            </Col>
+                            <Col md={4}>
+                                <Form.Control
+                                    placeholder={"Введите описание свойства..."}
+                                />
+                            </Col>
+                            <Col md={4}>
+                                <Button
+                                    variant={"outline-danger"}
+                                    onClick={() => removeInfo(i.id)}
+                                >
+                                    Удалить
+                                </Button>
+                            </Col>
+                        </Row>
+                    )}
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant={"outline-danger"} onClick={onHide}>Закрыть</Button>
+                <Button variant={"outline-success"} onClick={onHide}>Добавить</Button>
+            </Modal.Footer>
+        </Modal>
+    );
+};
+
+export default CreateDevice;

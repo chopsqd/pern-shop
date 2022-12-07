@@ -2,7 +2,7 @@ import {makeAutoObservable} from "mobx";
 
 export default class UserStore {
     constructor() {
-        this._isAuth = false
+        this._isAuth = true
         this._user = {}
         // Чтобы MobX следил за изменениями переменных выше
         // При их изменении компоненты будут перерендериваться
