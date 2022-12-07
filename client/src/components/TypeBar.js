@@ -17,6 +17,13 @@ const TypeBar = observer(() => {
                     {type.name}
                 </ListGroup.Item>
             )}
+            <ListGroup.Item
+                style={{cursor: 'pointer'}}
+                active={device.selectedType === {}}
+                onClick={() => device.setSelectedType({})}
+            >
+                Все
+            </ListGroup.Item>
         </ListGroup>
     );
 });

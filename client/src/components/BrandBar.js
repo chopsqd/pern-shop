@@ -19,6 +19,14 @@ const BrandBar = observer(() => {
                     {brand.name}
                 </Card>
             )}
+            <Card
+                className={"p-3"}
+                style={{cursor: 'pointer'}}
+                onClick={() => device.setSelectedBrand({})}
+                border={device.selectedBrand === {} ? 'primary' : 'light'}
+            >
+                Все
+            </Card>
         </Row>
     );
 });

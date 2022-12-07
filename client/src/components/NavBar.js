@@ -12,12 +12,14 @@ const NavBar = observer(() => {
     const logout = () => {
         user.setUser({})
         user.setIsAuth(false)
+        localStorage.removeItem('token')
+        navigate(LOGIN_ROUTE)
     }
 
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
-                <NavLink style={{color: 'white'}} to={SHOP_ROUTE}>PERN Shop</NavLink>
+                <NavLink style={{color: 'white', fontWeight: 700, textDecoration: 'none'}} to={SHOP_ROUTE}>PERN Shop</NavLink>
                 {user.isAuth ?
                     <Nav className="ml-auto" style={{color: 'white'}}>
                         <Button
